@@ -1,0 +1,18 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="runClient" type="Application" factoryName="Application" activateToolWindowBeforeRun="false">
+    <option name="ALTERNATIVE_JRE_PATH" value="17" />
+    <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+    <classpathModifications>
+      <entry exclude="true" path="D:\Shit\CosmicReach\CosmicModExample\build\resources\main" />
+      <entry exclude="true" path="D:\Shit\CosmicReach\CosmicModExample\build\classes\java\main" />
+    </classpathModifications>
+    <option name="MAIN_CLASS_NAME" value="net.fabricmc.loader.impl.launch.knot.KnotClient" />
+    <module name="CosmicModExample.main" />
+    <option name="VM_PARAMETERS" value="-Dfabric.skipMcProvider=true -Dfabric.side=client -Dfabric.development=true" />
+    <option name="WORKING_DIRECTORY" value="run" />
+    <method v="2">
+      <option name="Gradle.BeforeRunTask" enabled="true" tasks="jar" externalProjectPath="$PROJECT_DIR$" vmOptions="" scriptParameters="" />
+      <option name="Gradle.BeforeRunTask" enabled="true" tasks="moveJar" externalProjectPath="$PROJECT_DIR$" vmOptions="" scriptParameters="" />
+    </method>
+  </configuration>
+</component>

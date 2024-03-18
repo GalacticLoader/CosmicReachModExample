@@ -3,7 +3,7 @@ import de.undercouch.gradle.tasks.download.Download
 
 object Properties {
     const val MOD_VERSION = "0.1"
-    const val MOD_NAME = "Example Mod2"
+    const val MOD_NAME = "Example Mod"
     const val MODID = "examplemod"
     const val MAVEN_GROUP = "com.example.examplemod"
     const val COSMIC_REACH_VERSION = "0.1.8"

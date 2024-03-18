@@ -114,6 +114,9 @@ tasks.register<ShadowJar>("packageMod") {
 tasks.register("runClient") {
     group = "crmodders"
 
+    dependsOn("clearCache")
+    dependsOn("packageMod")
+
     doLast{
         var betterClasspath = listOf<File>()
         betterClasspath = betterClasspath.plus(sourceSets.main.get().compileClasspath)

@@ -102,25 +102,20 @@ tasks.register<Download>("downloadLoader") {
 tasks.register("clearCache") {
     group = "crmodders"
 
-    if (project.file("$projectDir/build/libs/${Properties.MOD_NAME}_${Properties.MOD_VERSION}-CR_${Properties.COSMIC_REACH_VERSION}.jar").exists())
-        project.file("$projectDir/build/libs/${Properties.MOD_NAME}_${Properties.MOD_VERSION}-CR_${Properties.COSMIC_REACH_VERSION}.jar").delete()
-}
-
-tasks.register<ShadowJar>("packageMod") {
-    group = "crmodders"
-    archiveFileName = "${Properties.MOD_NAME}_${Properties.MOD_VERSION}-CR_${Properties.COSMIC_REACH_VERSION}.jar"
+    if (project.file("$projectDir/build/libs/${Properties.MOD_NAME}_${Properties.MOD_VERSION}-CR_${Properties.COSMIC_REACH_VERSION}-all.jar").exists())
+        project.file("$projectDir/build/libs/${Properties.MOD_NAME}_${Properties.MOD_VERSION}-CR_${Properties.COSMIC_REACH_VERSION}-all.jar").delete()
 }
 
 tasks.register("runClient") {
     group = "crmodders"
 
     dependsOn("clearCache")
-    dependsOn("packageMod")
+    dependsOn("shadowJar")
 
     doLast{
         var betterClasspath = listOf<File>()
         betterClasspath = betterClasspath.plus(sourceSets.main.get().compileClasspath)
-        betterClasspath = betterClasspath.plus(file("$projectDir/build/libs/${Properties.MOD_NAME}_${Properties.MOD_VERSION}-CR_${Properties.COSMIC_REACH_VERSION}.jar"))
+        betterClasspath = betterClasspath.plus(file("$projectDir/build/libs/${Properties.MOD_NAME}_${Properties.MOD_VERSION}-CR_${Properties.COSMIC_REACH_VERSION}-all.jar"))
 
         javaexec {
             workingDir("$projectDir/run")

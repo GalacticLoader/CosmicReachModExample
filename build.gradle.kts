@@ -45,8 +45,8 @@ dependencies {
     shadow("org.ow2.asm:asm-commons:9.6")
     shadow("io.github.llamalad7:mixinextras-fabric:0.3.5")
 
-    implementation(files("$projectDir/run/cosmic-reach.jar"))
-    implementation(files("$projectDir/run/loader.jar"))
+    shadow(files("$projectDir/run/cosmic-reach.jar"))
+    shadow(files("$projectDir/run/loader.jar"))
 }
 
 // Embedded | Project Dependencies

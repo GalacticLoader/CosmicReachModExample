@@ -94,7 +94,7 @@ tasks.register<Download>("downloadCosmicReach") {
 tasks.register<Download>("downloadLoader") {
     group = "crmodders"
 
-    src("https://github.com/CosmicModders/ReachTheMoonLoader/releases/download/1.1.0/ReachTheMoonLoader-1.1.0.jar")
+    src("https://github.com/CosmicModders/ReachTheMoonLoader/releases/download/${Properties.LOADER_VERSION}/ReachTheMoonLoader-${Properties.LOADER_VERSION}.jar")
     acceptAnyCertificate(true)
     dest("$projectDir/run/loader.jar")
 }

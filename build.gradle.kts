@@ -104,17 +104,6 @@ tasks.register("clearCache") {
 
     if (project.file("$projectDir/build/libs/${Properties.MOD_NAME}_${Properties.MOD_VERSION}-CR_${Properties.COSMIC_REACH_VERSION}.jar").exists())
         project.file("$projectDir/build/libs/${Properties.MOD_NAME}_${Properties.MOD_VERSION}-CR_${Properties.COSMIC_REACH_VERSION}.jar").delete()
-    if (project.file("$projectDir/run/mods/${Properties.MOD_NAME}_${Properties.MOD_VERSION}-CR_${Properties.COSMIC_REACH_VERSION}.jar").exists())
-        project.file("$projectDir/run/mods/${Properties.MOD_NAME}_${Properties.MOD_VERSION}-CR_${Properties.COSMIC_REACH_VERSION}.jar").delete()
-}
-
-tasks.register<Copy>("moveJar") {
-    group = "crmodders"
-    mustRunAfter("shadowJar")
-
-    from("$projectDir/build/libs/")
-    into("$projectDir/run/mods")
-    include("${Properties.MOD_NAME}_${Properties.MOD_VERSION}-CR_${Properties.COSMIC_REACH_VERSION}.jar")
 }
 
 tasks.register<ShadowJar>("packageMod") {
@@ -125,15 +114,15 @@ tasks.register<ShadowJar>("packageMod") {
 tasks.register("runClient") {
     group = "crmodders"
 
-    dependsOn("clearCache")
-    dependsOn("shadowJar")
-    dependsOn("moveJar")
-
     doLast{
+        var betterClasspath = listOf<File>()
+        betterClasspath = betterClasspath.plus(sourceSets.main.get().compileClasspath)
+        betterClasspath = betterClasspath.plus(file("$projectDir/build/libs/${Properties.MOD_NAME}_${Properties.MOD_VERSION}-CR_${Properties.COSMIC_REACH_VERSION}.jar"))
+
         javaexec {
             workingDir("$projectDir/run")
             jvmArgs("-Dfabric.skipMcProvider=true","-Dfabric.development=true")
-            classpath(sourceSets.main.get().compileClasspath)
+            classpath(betterClasspath)
             mainClass = "net.fabricmc.loader.impl.launch.knot.KnotClient"
         }
     }

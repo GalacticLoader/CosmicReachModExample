@@ -1,4 +1,3 @@
-import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import de.undercouch.gradle.tasks.download.Download
 
 object Properties {
@@ -6,9 +5,12 @@ object Properties {
     const val MOD_NAME = "Example Mod"
     const val MODID = "examplemod"
     const val MAVEN_GROUP = "com.example.examplemod"
-    const val COSMIC_REACH_VERSION = "0.1.8"
+    const val COSMIC_REACH_VERSION = "0.1.9"
     const val LOADER_VERSION = "0.15.7"
 }
+
+val modJarName = "${Properties.MOD_NAME}_${Properties.MOD_VERSION}-CR_${Properties.COSMIC_REACH_VERSION}-all.jar"
+val modJarPath = "$projectDir/build/libs/$modJarName"
 
 plugins {
     id("java")
@@ -28,7 +30,7 @@ repositories {
     maven("https://maven.fabricmc.net/")
 }
 
-// Required Dependencies For Fabric
+// Required Fabric Dependencies
 dependencies {
     shadow("com.google.guava:guava:33.0.0-jre")
     shadow("com.google.code.gson:gson:2.9.1")
@@ -56,9 +58,7 @@ dependencies {
 //    shadow(files("$projectDir/run/mods/FluxAPI.jar"))
 }
 
-base {
-    archivesName = "${Properties.MOD_NAME}_${Properties.MOD_VERSION}-CR_${Properties.COSMIC_REACH_VERSION}"
-}
+base.archivesName = modJarName
 
 val properties = mapOf(
     "version" to Properties.MOD_VERSION,
@@ -76,7 +76,7 @@ tasks.processResources {
     }
 }
 
-tasks.register("SetupWorkEnviornment") {
+tasks.register("setupEnvironment") {
     group = "crmodders"
 
     dependsOn("downloadCosmicReach")
@@ -102,8 +102,8 @@ tasks.register<Download>("downloadLoader") {
 tasks.register("clearCache") {
     group = "crmodders"
 
-    if (project.file("$projectDir/build/libs/${Properties.MOD_NAME}_${Properties.MOD_VERSION}-CR_${Properties.COSMIC_REACH_VERSION}-all.jar").exists())
-        project.file("$projectDir/build/libs/${Properties.MOD_NAME}_${Properties.MOD_VERSION}-CR_${Properties.COSMIC_REACH_VERSION}-all.jar").delete()
+    if (project.file(path).exists())
+        project.file(path).delete()
 }
 
 tasks.register("runClient") {
@@ -115,7 +115,7 @@ tasks.register("runClient") {
     doLast{
         var betterClasspath = listOf<File>()
         betterClasspath = betterClasspath.plus(sourceSets.main.get().compileClasspath)
-        betterClasspath = betterClasspath.plus(file("$projectDir/build/libs/${Properties.MOD_NAME}_${Properties.MOD_VERSION}-CR_${Properties.COSMIC_REACH_VERSION}-all.jar"))
+        betterClasspath = betterClasspath.plus(file(modJarPath))
 
         javaexec {
             workingDir("$projectDir/run")

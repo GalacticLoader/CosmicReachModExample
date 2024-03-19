@@ -9,8 +9,10 @@ object Properties {
     const val LOADER_VERSION = "0.15.7"
 }
 
-val modJarName = "${Properties.MOD_NAME}_${Properties.MOD_VERSION}-CR_${Properties.COSMIC_REACH_VERSION}-all.jar"
-val modJarPath = "$projectDir/build/libs/$modJarName"
+val modJarName = "${Properties.MOD_NAME}_${Properties.MOD_VERSION}-CR_${Properties.COSMIC_REACH_VERSION}-all"
+val modJarPath = "$projectDir/build/libs/$modJarName.jar"
+
+println("Mod JAR path: $modJarPath")
 
 plugins {
     id("java")
@@ -32,20 +34,20 @@ repositories {
 
 // Required Fabric Dependencies
 dependencies {
-    shadow("com.google.guava:guava:33.0.0-jre")
-    shadow("com.google.code.gson:gson:2.9.1")
+    implementation("com.google.guava:guava:33.0.0-jre")
+    implementation("com.google.code.gson:gson:2.9.1")
 
-    shadow("net.fabricmc:fabric-loader:0.15.7")
-    shadow("net.fabricmc:tiny-mappings-parser:0.2.2.14")
-    shadow("net.fabricmc:access-widener:2.1.0")
-    shadow("net.fabricmc:sponge-mixin:0.12.5+mixin.0.8.5")
+    implementation("net.fabricmc:fabric-loader:0.15.7")
+    implementation("net.fabricmc:tiny-mappings-parser:0.2.2.14")
+    implementation("net.fabricmc:access-widener:2.1.0")
+    implementation("net.fabricmc:sponge-mixin:0.12.5+mixin.0.8.5")
 
-    shadow("org.ow2.asm:asm:9.6")
-    shadow("org.ow2.asm:asm-util:9.6")
-    shadow("org.ow2.asm:asm-tree:9.6")
-    shadow("org.ow2.asm:asm-analysis:9.6")
-    shadow("org.ow2.asm:asm-commons:9.6")
-    shadow("io.github.llamalad7:mixinextras-fabric:0.3.5")
+    implementation("org.ow2.asm:asm:9.6")
+    implementation("org.ow2.asm:asm-util:9.6")
+    implementation("org.ow2.asm:asm-tree:9.6")
+    implementation("org.ow2.asm:asm-analysis:9.6")
+    implementation("org.ow2.asm:asm-commons:9.6")
+    implementation("io.github.llamalad7:mixinextras-fabric:0.3.5")
 
     shadow(files("$projectDir/run/cosmic-reach.jar"))
     shadow(files("$projectDir/run/loader.jar"))
@@ -110,7 +112,7 @@ tasks.register("runClient") {
     group = "crmodders"
 
     dependsOn("clearCache")
-    dependsOn("shadowJar")
+    dependsOn("jar")
 
     doLast{
         var betterClasspath = listOf<File>()

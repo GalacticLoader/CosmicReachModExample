@@ -5,7 +5,7 @@ object Properties {
     const val MOD_NAME = "Example Mod"
     const val MODID = "examplemod"
     const val MAVEN_GROUP = "com.example.examplemod"
-    const val COSMIC_REACH_VERSION = "0.1.9"
+    const val COSMIC_REACH_VERSION = "0.1.11"
     const val LOADER_VERSION = "0.15.7"
 }
 
